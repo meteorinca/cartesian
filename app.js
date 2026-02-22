@@ -69,7 +69,7 @@ function drawGrid(canvas, opts = {}) {
     ctx.clearRect(0, 0, W, H);
 
     // Background
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, W, H);
 
     // Highlight quadrant if specified
@@ -80,16 +80,16 @@ function drawGrid(canvas, opts = {}) {
         const colors = { 'I': '#10b981', 'II': '#3b82f6', 'III': '#f59e0b', 'IV': '#ef4444' };
         ctx.fillStyle = colors[highlightQuadrant] || '#6366f1';
         switch (highlightQuadrant) {
-            case 'I':   ctx.fillRect(cx, margin, W - margin - cx, cy - margin); break;
-            case 'II':  ctx.fillRect(margin, margin, cx - margin, cy - margin); break;
+            case 'I': ctx.fillRect(cx, margin, W - margin - cx, cy - margin); break;
+            case 'II': ctx.fillRect(margin, margin, cx - margin, cy - margin); break;
             case 'III': ctx.fillRect(margin, cy, cx - margin, H - margin - cy); break;
-            case 'IV':  ctx.fillRect(cx, cy, W - margin - cx, H - margin - cy); break;
+            case 'IV': ctx.fillRect(cx, cy, W - margin - cx, H - margin - cy); break;
         }
         ctx.globalAlpha = 1;
     }
 
     // Grid lines
-    ctx.strokeStyle = 'rgba(99, 102, 241, 0.1)';
+    ctx.strokeStyle = 'rgba(99, 102, 241, 0.2)';
     ctx.lineWidth = 1;
     for (let i = -range; i <= range; i++) {
         // Vertical
@@ -107,7 +107,7 @@ function drawGrid(canvas, opts = {}) {
     }
 
     // Axes (thicker)
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.6)';
+    ctx.strokeStyle = 'rgba(71, 85, 105, 0.8)';
     ctx.lineWidth = 2;
     // X axis
     const axisY = toCanvasY(0);
@@ -123,7 +123,7 @@ function drawGrid(canvas, opts = {}) {
     ctx.stroke();
 
     // Axis arrows
-    ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+    ctx.fillStyle = 'rgba(71, 85, 105, 0.8)';
     // Right arrow
     ctx.beginPath();
     ctx.moveTo(W - margin, axisY);
@@ -139,7 +139,7 @@ function drawGrid(canvas, opts = {}) {
 
     // Labels
     if (showLabels) {
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#475569';
         ctx.font = '600 11px Inter, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
@@ -161,7 +161,7 @@ function drawGrid(canvas, opts = {}) {
         }
 
         // Axis names
-        ctx.fillStyle = '#a5b4fc';
+        ctx.fillStyle = '#4f46e5';
         ctx.font = '700 13px Inter, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
@@ -171,7 +171,7 @@ function drawGrid(canvas, opts = {}) {
         ctx.fillText('y', axisX + 14, margin - 16);
 
         // Origin label
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = '#94a3b8';
         ctx.font = '600 10px Inter, sans-serif';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'top';
@@ -197,7 +197,7 @@ function drawGrid(canvas, opts = {}) {
         // Label
         ctx.shadowBlur = 0;
         if (pt.label) {
-            ctx.fillStyle = '#e2e8f0';
+            ctx.fillStyle = '#1e293b';
             ctx.font = '700 12px Inter, sans-serif';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'bottom';
@@ -214,9 +214,9 @@ function drawGrid(canvas, opts = {}) {
 // ==================== PROBLEM GENERATORS ====================
 
 const DIFFICULTY_CONFIGS = {
-    easy:   { range: 5, minCoord: 0, maxCoord: 5 },
+    easy: { range: 5, minCoord: 0, maxCoord: 5 },
     medium: { range: 6, minCoord: -6, maxCoord: 6 },
-    hard:   { range: 10, minCoord: -10, maxCoord: 10 }
+    hard: { range: 10, minCoord: -10, maxCoord: 10 }
 };
 
 /**
@@ -333,11 +333,11 @@ function generateDistance(difficulty) {
  */
 function getGenerator(mode) {
     switch (mode) {
-        case 'plot-point':      return generatePlotPoint;
-        case 'identify-point':  return generateIdentifyPoint;
-        case 'find-quadrant':   return generateFindQuadrant;
-        case 'distance':        return generateDistance;
-        default:                return generatePlotPoint;
+        case 'plot-point': return generatePlotPoint;
+        case 'identify-point': return generateIdentifyPoint;
+        case 'find-quadrant': return generateFindQuadrant;
+        case 'distance': return generateDistance;
+        default: return generatePlotPoint;
     }
 }
 
@@ -752,7 +752,7 @@ function buildDistance(main, problem) {
     btnHint.addEventListener('click', () => {
         const dx = problem.x2 - problem.x1;
         const dy = problem.y2 - problem.y1;
-        qfb.textContent = `d = √((${dx})² + (${dy})²) = √(${dx*dx} + ${dy*dy}) = √${dx*dx + dy*dy}`;
+        qfb.textContent = `d = √((${dx})² + (${dy})²) = √(${dx * dx} + ${dy * dy}) = √${dx * dx + dy * dy}`;
         qfb.style.color = '#94a3b8';
     });
 
@@ -824,10 +824,10 @@ function checkAll() {
  */
 function checkProblem(row, mode, problem) {
     switch (mode) {
-        case 'plot-point':      return checkPlotPoint(row, problem);
-        case 'identify-point':  return checkIdentifyPoint(row, problem);
-        case 'find-quadrant':   return checkFindQuadrant(row, problem);
-        case 'distance':        return checkDistance(row, problem);
+        case 'plot-point': return checkPlotPoint(row, problem);
+        case 'identify-point': return checkIdentifyPoint(row, problem);
+        case 'find-quadrant': return checkFindQuadrant(row, problem);
+        case 'distance': return checkDistance(row, problem);
         default: return false;
     }
 }
