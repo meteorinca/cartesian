@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Cartesian Coordinates</title>
+    <meta name="description"
+        content="Learn to plot, identify, and master Cartesian coordinates with interactive visual tools and step-by-step guidance.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>📍 Mastering Cartesian Coordinates</h1>
+        <div class="subtitle">Navigate the coordinate plane like a space navigator!</div>
+
+        <!-- Intro Section -->
+        <div class="intro">
+            <p><strong>Cartesian coordinates</strong> let you pinpoint any location on a flat surface using just two
+                numbers — an <strong>x</strong> (horizontal) and a <strong>y</strong> (vertical). It's the language maps,
+                games, and rockets all speak!</p>
+            <p class="tip">💡 <strong>Key Insight:</strong> Every point on the plane is written as <strong>(x, y)</strong>
+                — first go left/right, then go up/down!</p>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="mode-selector">
+            <button class="mode-btn active" id="mode-plot-point" data-mode="plot-point">
+                <span class="mode-icon">📌</span>
+                <span class="mode-text">Plot the Point</span>
+            </button>
+            <button class="mode-btn" id="mode-identify-point" data-mode="identify-point">
+                <span class="mode-icon">🔎</span>
+                <span class="mode-text">Identify the Point</span>
+            </button>
+            <button class="mode-btn" id="mode-find-quadrant" data-mode="find-quadrant">
+                <span class="mode-icon">🧭</span>
+                <span class="mode-text">Find the Quadrant</span>
+            </button>
+            <button class="mode-btn" id="mode-distance" data-mode="distance">
+                <span class="mode-icon">📏</span>
+                <span class="mode-text">Calculate Distance</span>
+            </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-left">
+                <label>Problems:</label>
+                <select id="count">
+                    <option value="1">1</option>
+                    <option value="3" selected>3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                <label>Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy (Quadrant I)</option>
+                    <option value="medium" selected>Medium (All Quadrants)</option>
+                    <option value="hard">Hard (Larger Range)</option>
+                </select>
+            </div>
+            <div class="control-right">
+                <button class="btn btn-new" id="btnNew">🔄 New Problems</button>
+                <button class="btn btn-check" id="btnCheck">✓ Check All</button>
+            </div>
+        </div>
+
+        <!-- Quick Reference Cards -->
+        <div class="reference-cards">
+            <div class="ref-card">
+                <div class="ref-title">The X-Axis</div>
+                <div class="ref-formula">Horizontal line — goes left (−) and right (+)</div>
+                <div class="ref-example">x = 3 means "3 units right of center"</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-title">The Y-Axis</div>
+                <div class="ref-formula">Vertical line — goes down (−) and up (+)</div>
+                <div class="ref-example">y = −2 means "2 units below center"</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-title">The Origin</div>
+                <div class="ref-formula">Where the axes cross: (0, 0)</div>
+                <div class="ref-example">The "home base" of the plane</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-title">Quadrants</div>
+                <div class="ref-formula">I (+,+) · II (−,+) · III (−,−) · IV (+,−)</div>
+                <div class="ref-example">Counter-clockwise from top-right</div>
+            </div>
+        </div>
+
+        <!-- Quiz Area -->
+        <div id="quiz"></div>
+
+        <!-- Global Feedback -->
+        <div class="feedback" id="globalFeedback"></div>
+
+        <!-- Tips & Learning Section -->
+        <div class="tips-container">
+            <details>
+                <summary>📚 Cartesian Coordinate Tips & Methods</summary>
+                <div class="tips-content">
+                    <div class="step">
+                        <div><span class="step-number">1</span> <strong>UNDERSTAND</strong> the coordinate plane</div>
+                        <div class="example">
+                            <div class="example-title">The Plane Is Made of Two Number Lines</div>
+                            <p>The <strong>x-axis</strong> runs left–right. The <strong>y-axis</strong> runs up–down. They
+                                cross at the <strong>origin (0, 0)</strong>.</p>
+                            <div class="mini-plane" id="demo-plane"></div>
+                            <p class="grid-caption">The origin is the center dot. Each square = 1 unit.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div><span class="step-number">2</span> <strong>PLOTTING</strong> a point (x, y)</div>
+                        <div class="example">
+                            <div class="example-title">Example: Plot (3, 2)</div>
+                            <div class="conversion-flow">
+                                <div class="flow-step">
+                                    <span class="flow-text">Start at origin</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <span class="flow-text">Move 3 right</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <span class="flow-text">Move 2 up</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step highlight">
+                                    <span class="flow-result">Mark it!</span>
+                                </div>
+                            </div>
+                            <p><strong>Memory trick:</strong> Think of a hallway — you walk <em>across</em> first (x), then take the elevator <em>up/down</em> (y).</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div><span class="step-number">3</span> <strong>QUADRANTS</strong> — the four zones</div>
+                        <div class="example">
+                            <div class="example-title">Signs tell you the Quadrant</div>
+                            <div class="quadrant-diagram">
+                                <div class="quad-cell quad-ii">
+                                    <span class="quad-label">II</span>
+                                    <span class="quad-signs">(−, +)</span>
+                                </div>
+                                <div class="quad-cell quad-i">
+                                    <span class="quad-label">I</span>
+                                    <span class="quad-signs">(+, +)</span>
+                                </div>
+                                <div class="quad-cell quad-iii">
+                                    <span class="quad-label">III</span>
+                                    <span class="quad-signs">(−, −)</span>
+                                </div>
+                                <div class="quad-cell quad-iv">
+                                    <span class="quad-label">IV</span>
+                                    <span class="quad-signs">(+, −)</span>
+                                </div>
+                            </div>
+                            <p><strong>Shortcut:</strong> Look at the signs of x and y — they instantly reveal the quadrant!</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div><span class="step-number">4</span> <strong>DISTANCE</strong> between two points</div>
+                        <div class="example">
+                            <div class="example-title">Distance Formula (from the Pythagorean Theorem)</div>
+                            <div class="formula-display">
+                                d = √( (x₂ − x₁)² + (y₂ − y₁)² )
+                            </div>
+                            <div class="conversion-flow">
+                                <div class="flow-step">
+                                    <span class="flow-text">(1, 2) to (4, 6)</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <span class="flow-text">√(3² + 4²)</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <span class="flow-text">√(9+16) = √25</span>
+                                </div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step highlight">
+                                    <span class="flow-result">5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>🧭 Quadrant Quick-Reference</summary>
+                <div class="tips-content">
+                    <div class="common-table">
+                        <div class="common-row header">
+                            <span>Quadrant</span>
+                            <span>x sign</span>
+                            <span>y sign</span>
+                            <span>Example</span>
+                        </div>
+                        <div class="common-row">
+                            <span>I</span>
+                            <span>+</span>
+                            <span>+</span>
+                            <span>(3, 5)</span>
+                        </div>
+                        <div class="common-row">
+                            <span>II</span>
+                            <span>−</span>
+                            <span>+</span>
+                            <span>(−4, 2)</span>
+                        </div>
+                        <div class="common-row">
+                            <span>III</span>
+                            <span>−</span>
+                            <span>−</span>
+                            <span>(−1, −3)</span>
+                        </div>
+                        <div class="common-row">
+                            <span>IV</span>
+                            <span>+</span>
+                            <span>−</span>
+                            <span>(6, −2)</span>
+                        </div>
+                    </div>
+                    <p class="memory-tip">💡 <strong>Pro Tip:</strong> Quadrants go counter-clockwise starting from the top-right, just like a math book!</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>🧠 Real-World Applications</summary>
+                <div class="tips-content">
+                    <div class="real-world-example">
+                        <div class="rw-title">🎮 Video Games</div>
+                        <p>Every sprite, bullet, and powerup has an (x, y) position. Game engines ARE coordinate planes!</p>
+                    </div>
+                    <div class="real-world-example">
+                        <div class="rw-title">🗺️ GPS & Maps</div>
+                        <p>Latitude and longitude are just (x, y) on a curved surface. Your phone uses coordinates to navigate you every day.</p>
+                    </div>
+                    <div class="real-world-example">
+                        <div class="rw-title">🚀 Space Navigation</div>
+                        <p>Spacecraft use 3D coordinates (x, y, z) to navigate the solar system. Mastering 2D is the first step to the stars!</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
